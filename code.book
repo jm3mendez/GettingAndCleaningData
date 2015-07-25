@@ -1,0 +1,131 @@
+
+Describing variables and values and Procedure to move the Raw data to tiny Data
+
+The variables involved are related with the guide or subject studied, and the multiple
+measure associated with movement, spatial acelleration using the sensors of a Samsung II 
+cellular.
+
+A.- CodeBook, variables description (closed with '<>')
+    The data involved was related with wearable data
+
+<Subject>: Is the pearson or subject monitored, defined by a integer 
+           an identification number. Ranged from 1 to 30
+
+<X>: Coorrespond to positional variation, the time series and the frecuency 
+     series each 598 samples.
+
+<Y>: Correspond to the activities coded number a limited integer in the 
+     range of 1 to 6, could be:
+
+     1 WALKING
+     2 WALKING_UPSTAIRS
+     3 WALKING_DOWNSTAIRS
+     4 SITTING
+     5 STANDING
+     6 LAYING
+
+<tBodyAccX>
+<tBodyAccY>
+<tBodyAccZ>:  Time Series related to the body acceleration in spatial coordinates X,Y,X
+              in gravity units 'g' The body acceleration signal obtained by subtracting 
+              the gravity from the total acceleration
+
+<tBodyGyroX>
+<tBodyGyroY>
+<tBodyGyroZ>:  Time Series related to Body Gyroscope. angualr velocity Radians/sec
+
+<tTotalAccX>
+<tTotalAccY>
+<tTotalAccZ>:  Time Series realted to The acceleration signal from 
+               The smartphone accelerometer X/Y/Z axis in standard gravity units 'g'.
+
+
+ 
+
+B.- Study Design 
+
+A tidy data was asked in order to be complete, captured as vector
+and included in a dataframe including all variables, called "df". 
+In order to do that was necessary to prepare the data to finally use to 
+obtain the processable data called tiny data.
+
+The procedure to move the raw data to tiny data 1 was:
+
+   a.- We Took the data originally zipped an tared data, and put it in a local 
+       subdirectory. 
+        A linux un-Tar and uncompressed data was extracted from the data 
+        source file, to do that we used:
+        (linux)$tar -xvf getdata_projectfiles_UCI HAR Dataset.zip (linux comand)
+       In my case put in (/home/jmendez/Desktop/UCI HAR Dataset) directory.
+
+   b.- From R, create a representative named vector, that could contain the complete 
+       sampled as a vector to extract the especific data to this for all variables.  
+       R> y=vector()
+
+   c.- The raw data was prepared/filter in order to capture that as a R vector
+       (This was done using awk (linux capability) and its simple expresion was:
+          for example, taking 'test_y.txt file' from linux
+          $awk '{ print$1}' test_y.txt > test2_y.txt
+        This was applied to all variables of the previous items, because carriage 
+     return or ^M or other especific entries appeared in the file that affected 
+     the way to read that  using read.csv.
+       just  X, GyroAccel, TotalAccel, and Accel were affected and processed  
+     The original data or raw data was saved.
+
+   d.- Then, we used the R sentences to capure the Vectors for each variable or 
+       vector, this was done through
+       R> ytest=as.vector(read.csv('UCI_HAR_Dataset/test/y_test.txt',
+                            sep='\n',header=F))
+       This was applied to all variables in teh item 1
+  
+   e.- <Y> corresponded to activites, but previous to that was necessary to
+      take the y_test data and joint that with y_train data, that was done 
+      using the R sentences:
+      R> Acytivities=c(ytest$V1,ytrain$V1) for all variables in item 1
+
+
+         # Generate all named vectors
+
+         Subject=c(subtest$V1,subtrain$V1)
+
+         X=c(xtest$V1,xtrain$V1)
+         Activities=c(ytest$V1,ytrain$V1)
+
+         tBodyAccX=c(baxtest$V1,baxtrain$V1)
+         tBodyAccY=c(baytest$V1,baytrain$V1)
+         tBodyAccZ=c(baztest$V1,baztrain$V1)
+
+         tBodyGyroX=c(bgxtest$V1,bgxtrain$V1)
+         tBodyGyroY=c(bgytest$V1,bgytrain$V1)
+         tBodyGyroZ=c(bgztest$V1,bgztrain$V1)
+
+         tTotalAccX=c(taxtest$V1,taxtrain$V1)
+         tTotalAccY=c(taytest$V1,taytrain$V1)
+         tTotalAccZ=c(taztest$V1,taztrain$V1)
+
+f.- Finally we created de dataframe structure with the previous vectors
+       using R
+
+       R> df=data.frame(Subject,X,Y,tBodyAccX,tBodyAccY,tBodyAccZ,tBodyGyroX,
+              tBodyGyroY,tBodyGyroZ,tTotalAccX,tTotalAccY,tTotalAccZ)
+
+Similar process but using R facilities like lapply and dlyr functions were
+used to obtain the mean, the Desviation and finally the reordered tiny data
+
+Aspect Covered,
+
+1.- information about the variables (including units) in the dataset 
+    not contained in tidy data
+
+2.- information about the summary choices you made
+
+3.- information about the experimiental study design you used
+
+Seccions.....
+
+A.- Study Design    how to collected data
+
+B.- Code Book       describe each variable and its units
+
+JMEndez
+jul 2015
