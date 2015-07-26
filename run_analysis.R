@@ -114,6 +114,7 @@ tTotalAccSdZ=dfSd$tTotalAccZ
 #     4.- Sitting
 #     5.- Standing
 #     6.- Laying
+#
 
 for (i in 1:length(df$Y)) {
   if(df$Y[i]==1)
