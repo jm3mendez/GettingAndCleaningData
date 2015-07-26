@@ -67,7 +67,8 @@ tTotalAccY=c(taytest$V1,taytrain$V1)
 tTotalAccZ=c(taztest$V1,taztrain$V1)
 
 # df: Tidy 1
-df=data.frame(Subject,X,Y,tBodyAccX,tBodyAccY,tBodyAccZ,tBodyGyroX,tBodyGyroY,tBodyGyroZ,tTotalAccX,tTotalAccY,tTotalAccZ)
+# X is not a pure variable a measured
+df=data.frame(Subject,Y,tBodyAccX,tBodyAccY,tBodyAccZ,tBodyGyroX,tBodyGyroY,tBodyGyroZ,tTotalAccX,tTotalAccY,tTotalAccZ)
 
 # 2.- Extracts only the measurements on the mean and 
 #     standard deviation for each measurement. 
@@ -151,7 +152,7 @@ library(reshape2)
 
 tiny2=group_by(df,Activity,Subject)
 
-meltdf=melt(df,id=c("Activity","Subject"),measure.vars=c("X","tBodyAccX","tBodyAccY","tBodyAccZ","tBodyGyroX","tBodyGyroY","tBodyGyroZ","tTotalAccX","tTotalAccY","tTotalAccZ"))
+meltdf=melt(df,id=c("Activity","Subject"),measure.vars=c("tBodyAccX","tBodyAccY","tBodyAccZ","tBodyGyroX","tBodyGyroY","tBodyGyroZ","tTotalAccX","tTotalAccY","tTotalAccZ"))
 
 newtiny=dcast(meltdf,Activity + Subject~variable,mean)
 group_by(newtiny,Subject,Activity)

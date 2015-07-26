@@ -12,8 +12,9 @@ A.- CodeBook, variables description (closed with '<>')
 <Subject>: Is the pearson or subject monitored, defined by a integer 
            an identification number. Ranged from 1 to 30
 
-<X>: Coorrespond to positional variation, the time series and the frecuency 
-     series each 598 samples.
+<X>: Coorrespond to positional variation, the time series amd the frecuency 
+     series. each 598 samples. it was not added because is a mix time 
+     frecuency domain
 
 <Y>: Correspond to the Activities coded number a limited integer in the 
      range of 1 to 6, could be:
