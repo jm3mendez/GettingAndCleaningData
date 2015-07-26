@@ -9,13 +9,18 @@ The basic model correponded to a box that received an input, the raw data
  that is a compressed and tared data and its return a tiny data.
 
 A.- Phase 1, Getting and Cleanning Data
+    just run %sh linux-script.sh previous to run R run_analysis.R script
+
+Description of the linux-scripting.sh
+
+# The Getting Part
 
 i.- The data was downloaded, untared and uncomporessed by linux (extracting phase).
 
   %wget "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"   
-  # or R-Download
   %tar -xvf "getdata_projectfiles_UCI HAR Dataset.zip"
   %mv getdata_projectfiles_UCI HAR Dataset.zip getdata_projectfiles_UCI_HAR_Dataset.zip
+
   #and a work directory was created.
  
 ii.- The Data comes noisy, in order to be used adequately I filtered  
@@ -26,15 +31,17 @@ ii.- The Data comes noisy, in order to be used adequately I filtered
      but finally I used the linux awk filter in order to expose data 
      as we need, a columnar aspect. the data row and a carriage return, 
      the data row and cariage return and so on...
+ 
   # generally over the measured files
-  %awk '{ print$1' }' mytest/mytrain.txt > mytest2/mytrain2.txt
+  #%awk '{ print$1' }' mytest/mytrain.txt > mytest2/mytrain2.txt
   #the complete shells script was:
 
-# the xxxx_test2 and yyyy_train2 files 
+# This is the Cleaning Part,
+        iover the xxxx_test2 and yyyy_train2 files 
 
 (cd  /home/jmendez/Coursera/Getting-And_cleaning_data/Project/UCI_CHAR_Dataset/test;
  awk -F" " 'BEGIN{cta=0;}{ print $1; cta++ }END{}' X_test.txt > X_test2.txt;
- cd test;
+ cd Inertial*;
  awk '{print $1}' body_acc_x_test.txt > body_acc_x_test2.txt
  awk '{print $1}' body_acc_y_test.txt > body_acc_y_test2.txt
  awk '{print $1}' body_acc_z_test.txt > body_acc_z_test2.txt
@@ -48,6 +55,7 @@ ii.- The Data comes noisy, in order to be used adequately I filtered
 # Train 
 (cd  /home/jmendez/Coursera/Getting-And_cleaning_data/Project/UCI_CHAR_Dataset/train;
  awk -F" " 'BEGIN{cta=0;}{ print $1; cta++ }END{}' X_train.txt > X_train2.txt;
+ cd Inertial*;
  awk '{print $1}' body_acc_x_train.txt > body_acc_x_train2.txt
  awk '{print $1}' body_acc_y_train.txt > body_acc_y_train2.txt
  awk '{print $1}' body_acc_z_train.txt > body_acc_z_train2.txt
@@ -58,7 +66,11 @@ ii.- The Data comes noisy, in order to be used adequately I filtered
  awk '{print $1}' total_acc_y_train.txt > total_acc_y_train2.txt
  awk '{print $1}' total_acc_z_train.txt > total_acc_z_train2.txt
 )
-  
+
+Note: part of this could be done using R, but was more faster and packaged
+for my make that part using linux.
+ 
+
 B.- Phase 2,  handling data to generate tiny data and process it. 
    run_analysis.R script
 
@@ -75,7 +87,7 @@ ii.- Pre-Processing stage
 iii.- The asked tiny data was generated using dlply functions
 
 
-iv.- The R script run_analysis.R
+iv.- The R script to run:     run_analysis.R
 
 # My Project  JM3
 # You should create one R script called run_analysis.R 
