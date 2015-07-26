@@ -237,7 +237,4 @@ group_by(newtiny,Subject,Activity)
 write.table(newtiny,file='tiny.txt',row.name=FALSE)
 
 
-
-
-
 # GettingAndCleaningData
