@@ -1,6 +1,6 @@
-Instruction list
+## Instruction list
 
-Describe the procedure 
+Describing the procedure 
 
 The procedure involved two environment: R preferently an Linux
 (just to extract and preapare the information).
@@ -8,20 +8,20 @@ The procedure involved two environment: R preferently an Linux
 The basic model correponded to a box that received an input, the raw data
  that is a compressed and tared data and its return a tiny data.
 
-A.- Phase 1, Getting and Cleanning Data
+## A.- Phase 1, Getting and Cleanning Data
     just run %sh linux-script.sh previous to run R run_analysis.R script
 
 Description of the linux-scripting.sh
 
-# The Getting Part
-
 i.- The data was downloaded, untared and uncomporessed by linux (extracting phase).
 
   %wget "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"   
+
   %unzip "getdata*projectfiles*UCI*HAR*Dataset.zip"
+
   %mv "UCI HAR Dataset" UCI_HAR_Dataset
 
-  #and a work directory was created.
+  and a work directory was created.
  
 ii.- The Data comes noisy, in order to be used adequately I filtered  
      the extra character contains, like excesive blanks characters, ^M 
@@ -32,15 +32,16 @@ ii.- The Data comes noisy, in order to be used adequately I filtered
      as we need, a columnar aspect. the data row and a carriage return, 
      the data row and cariage return and so on...
  
-  # generally over the measured files
-  #%awk '{ print$1' }' mytest/mytrain.txt > mytest2/mytrain2.txt
-  #the complete shells script was:
+   generally over the measured files
+     awk '{ print$1' }' mytest/mytrain.txt > mytest2/mytrain2.txt
 
 # This is the Cleaning Part,
-        iover the xxxx_test2 and yyyy_train2 files 
+        over the xxxx_test2 and yyyy_train2 files 
 
+# Test
 (cd  UCI_CHAR_Dataset/test;
  awk -F" " 'BEGIN{cta=0;}{ print $1; cta++ }END{}' X_test.txt > X_test2.txt;
+
  cd Inertial*;
  awk '{print $1}' body_acc_x_test.txt > body_acc_x_test2.txt
  awk '{print $1}' body_acc_y_test.txt > body_acc_y_test2.txt
@@ -52,9 +53,11 @@ ii.- The Data comes noisy, in order to be used adequately I filtered
  awk '{print $1}' total_acc_y_test.txt > total_acc_y_test2.txt
  awk '{print $1}' total_acc_z_test.txt > total_acc_z_test2.txt
  )
+
 # Train 
 (cd  UCI_CHAR_Dataset/train;
  awk -F" " 'BEGIN{cta=0;}{ print $1; cta++ }END{}' X_train.txt > X_train2.txt;
+
  cd Inertial*;
  awk '{print $1}' body_acc_x_train.txt > body_acc_x_train2.txt
  awk '{print $1}' body_acc_y_train.txt > body_acc_y_train2.txt
@@ -67,12 +70,12 @@ ii.- The Data comes noisy, in order to be used adequately I filtered
  awk '{print $1}' total_acc_z_train.txt > total_acc_z_train2.txt
 )
 
-Note: Part of this script could be done using R, but was more faster and packaged
-for my make that part using linux.  Besides could be included in run_analysi.R via
-system('linux-script.sh',...)
+Note: Part of this script could be done using R, but was more faster 
+      and packaged for my make that part using linux.  Besides it could 
+      be included in run_analysi.R via system('linux-script.sh',...)
  
 
-B.- Phase 2,  Handling data to generate tiny data and process it. 
+## B.- Phase 2,  Handling data to generate tiny data and process it. 
    run_analysis.R script
 
 General Trace:
@@ -105,7 +108,8 @@ iv.- The R Script
 
 library(dplyr)
 
-setwd('/home/jmendez/Coursera/Getting-And-Cleaning-Data/Project')
+#setwd('/home/jmendez/Coursera/Getting-And-Cleaning-Data/Project')
+# setwd(getwd())
 
 subtest=as.vector(read.csv('UCI_HAR_Dataset/test/subject_test.txt',sep="\n",header=F))
 subtrain=as.vector(read.csv('UCI_HAR_Dataset/train/subject_train.txt',sep="\n",header=F))
