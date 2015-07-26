@@ -6,7 +6,8 @@ measure associated with movement, spatial acelleration using the sensors of a Sa
 cellular.
 
 A.- CodeBook, variables description (closed with '<>')
-    The data involved was related with wearable data
+    (The data involved was related with wearable data)
+    
 
 <Subject>: Is the pearson or subject monitored, defined by a integer 
            an identification number. Ranged from 1 to 30
@@ -14,7 +15,7 @@ A.- CodeBook, variables description (closed with '<>')
 <X>: Coorrespond to positional variation, the time series and the frecuency 
      series each 598 samples.
 
-<Y>: Correspond to the activities coded number a limited integer in the 
+<Y>: Correspond to the Activities coded number a limited integer in the 
      range of 1 to 6, could be:
 
      1 WALKING
@@ -26,17 +27,18 @@ A.- CodeBook, variables description (closed with '<>')
 
 <tBodyAccX>
 <tBodyAccY>
-<tBodyAccZ>:  Time Series related to the body acceleration in spatial coordinates X,Y,X
-              in gravity units 'g' The body acceleration signal obtained by subtracting 
-              the gravity from the total acceleration
+<tBodyAccZ>: Time Series related to the body acceleration in spatial coordinates 
+             X,Y,X, expressed in gravity units 'g' The body acceleration signal 
+             obtained by subtracting the gravity from the total acceleration
 
 <tBodyGyroX>
 <tBodyGyroY>
-<tBodyGyroZ>:  Time Series related to Body Gyroscope. angualr velocity Radians/sec
+<tBodyGyroZ>:  Time Series related to Body Gyroscope. represent angular velocity 
+               Radians/sec
 
 <tTotalAccX>
 <tTotalAccY>
-<tTotalAccZ>:  Time Series realted to The acceleration signal from 
+<tTotalAccZ>:  Time Series related to The acceleration signal from 
                The smartphone accelerometer X/Y/Z axis in standard gravity units 'g'.
 
 
@@ -106,8 +108,15 @@ The procedure to move the raw data to tiny data 1 was:
 f.- Finally we created de dataframe structure with the previous vectors
        using R
 
-       R> df=data.frame(Subject,X,Y,tBodyAccX,tBodyAccY,tBodyAccZ,tBodyGyroX,
+    R> df=data.frame(Subject,X,Y,tBodyAccX,tBodyAccY,tBodyAccZ,tBodyGyroX,
               tBodyGyroY,tBodyGyroZ,tTotalAccX,tTotalAccY,tTotalAccZ)
+     And processed data using Dlyr package
+
+     meltdf=melt(df,id=c("Activity","Subject"),
+            measure.vars=c("X","tBodyAccX","tBodyAccY","tBodyAccZ",
+                 "tBodyGyroX","tBodyGyroY","tBodyGyroZ","tTotalAccX",
+                 "tTotalAccY","tTotalAccZ"))
+     newtiny=dcast(tiny2,Activity~variable,mean)
 
 Similar process but using R facilities like lapply and dlyr functions were
 used to obtain the mean, the Desviation and finally the reordered tiny data
