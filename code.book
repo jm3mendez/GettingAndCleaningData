@@ -118,8 +118,8 @@ f.- Finally we created de dataframe structure with the previous vectors
                  "tTotalAccY","tTotalAccZ"))
      newtiny=dcast(tiny2,Activity~variable,mean)
 
-Similar process but using R facilities like lapply and dlyr functions were
-used to obtain the mean, the Desviation and finally the reordered tiny data
+Similar process but using R facilities like lapply and dplyr functions were
+used to obtain the mean, the Desviation and finally the asked tiny data
 
 Aspect Covered,
 

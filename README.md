@@ -67,12 +67,15 @@ ii.- The Data comes noisy, in order to be used adequately I filtered
  awk '{print $1}' total_acc_z_train.txt > total_acc_z_train2.txt
 )
 
-Note: part of this could be done using R, but was more faster and packaged
-for my make that part using linux.
+Note: Part of this script could be done using R, but was more faster and packaged
+for my make that part using linux.  Besides could be included in run_analysi.R via
+system('linux-script.sh',...)
  
 
-B.- Phase 2,  handling data to generate tiny data and process it. 
+B.- Phase 2,  Handling data to generate tiny data and process it. 
    run_analysis.R script
+
+General Trace:
 
 i.-From here R script was used to associate Variables with vector 
    for all variables for X, Y, nad Z coordinates of acceleration data, 
@@ -84,10 +87,13 @@ ii.- Pre-Processing stage
      the mean and the standar desviation was asked I used lapply to 
      obtain that named correspondly  to the different variables
 
-iii.- The asked tiny data was generated using dlply functions
+iii.- The asked tiny data was generated/processed using dplyr and reshape2 functions
+     and others
+     a tiny.txt file was created
 
 
-iv.- The R script to run:     run_analysis.R
+iv.- The R Script 
+      The R script to run:     run_analysis.R
 
 # My Project  JM3
 # You should create one R script called run_analysis.R 
@@ -96,6 +102,8 @@ iv.- The R script to run:     run_analysis.R
 
 # 1.- Merges the training and the test sets to create one 
 #     data set.
+
+library(dplyr)
 
 setwd('/home/jmendez/Coursera/Getting-And-Cleaning-Data/Project')
 
