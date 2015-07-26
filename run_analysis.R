@@ -89,7 +89,6 @@ tTotalAccMeanX=dfMean$tTotalAccX
 tTotalAccMeanY=dfMean$tTotalAccY
 tTotalAccMeanZ=dfMean$tTotalAccZ
 
-#ojo time frequency ti unsamble
 
 SdTimeFrecuency=dfSd$X
 SdActivity=dfSd$Y
@@ -138,7 +137,7 @@ select(df,Y)
 #     variable names. 
 #
 names(df)[3]="Activity"
-# the others  Done Before
+# the others were Done Before
 names(df)
 
 #5.-  From the data set in step 4, creates a second, 
