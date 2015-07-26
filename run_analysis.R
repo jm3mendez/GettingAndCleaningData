@@ -8,11 +8,12 @@
 
 library(dplyr)
 
-setwd('/home/jmendez/Coursera/Getting-And-Cleaning-Data/Project')
+#setwd('/home/jmendez/Coursera/Getting-And-Cleaning-Data/Project')
+#setwd('./')
+setwd(getwd())
 
 subtest=as.vector(read.csv('UCI_HAR_Dataset/test/subject_test.txt',sep="\n",header=F))
 subtrain=as.vector(read.csv('UCI_HAR_Dataset/train/subject_train.txt',sep="\n",header=F))
-
 
 xtest=as.vector(read.csv('UCI_HAR_Dataset/test/X_test.txt',sep="\n",header=F))
 ytest=as.vector(read.csv('UCI_HAR_Dataset/test/y_test.txt',sep='\n',header=F))

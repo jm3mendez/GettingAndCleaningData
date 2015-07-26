@@ -18,8 +18,8 @@ Description of the linux-scripting.sh
 i.- The data was downloaded, untared and uncomporessed by linux (extracting phase).
 
   %wget "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"   
-  %tar -xvf "getdata_projectfiles_UCI HAR Dataset.zip"
-  %mv getdata_projectfiles_UCI HAR Dataset.zip getdata_projectfiles_UCI_HAR_Dataset.zip
+  %unzip "getdata*projectfiles*UCI*HAR*Dataset.zip"
+  %mv "UCI HAR Dataset" UCI_HAR_Dataset
 
   #and a work directory was created.
  
@@ -39,7 +39,7 @@ ii.- The Data comes noisy, in order to be used adequately I filtered
 # This is the Cleaning Part,
         iover the xxxx_test2 and yyyy_train2 files 
 
-(cd  /home/jmendez/Coursera/Getting-And_cleaning_data/Project/UCI_CHAR_Dataset/test;
+(cd  UCI_CHAR_Dataset/test;
  awk -F" " 'BEGIN{cta=0;}{ print $1; cta++ }END{}' X_test.txt > X_test2.txt;
  cd Inertial*;
  awk '{print $1}' body_acc_x_test.txt > body_acc_x_test2.txt
@@ -53,7 +53,7 @@ ii.- The Data comes noisy, in order to be used adequately I filtered
  awk '{print $1}' total_acc_z_test.txt > total_acc_z_test2.txt
  )
 # Train 
-(cd  /home/jmendez/Coursera/Getting-And_cleaning_data/Project/UCI_CHAR_Dataset/train;
+(cd  UCI_CHAR_Dataset/train;
  awk -F" " 'BEGIN{cta=0;}{ print $1; cta++ }END{}' X_train.txt > X_train2.txt;
  cd Inertial*;
  awk '{print $1}' body_acc_x_train.txt > body_acc_x_train2.txt
