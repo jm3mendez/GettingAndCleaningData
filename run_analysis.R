@@ -141,7 +141,7 @@ names(df)[3]="Activity"
 # the others  Done Before
 names(df)
 
-# From the data set in step 4, creates a second, 
+#5.-  From the data set in step 4, creates a second, 
 # independent tidy data set with the average of each 
 # variable for each activity and each subject.
 #
@@ -152,8 +152,10 @@ tiny2=group_by(df,Activity,Subject)
 
 meltdf=melt(df,id=c("Activity","Subject"),measure.vars=c("X","tBodyAccX","tBodyAccY","tBodyAccZ","tBodyGyroX","tBodyGyroY","tBodyGyroZ","tTotalAccX","tTotalAccY","tTotalAccZ"))
 
-newtiny=dcast(tiny2,Activity~variable,mean)
+newtiny=dcast(meltdf,Activity + Subject~variable,mean)
+group_by(newtiny,Subject,Activity)
 
+write.table(newtiny,file='tiny.txt',row.name=FALSE)
 
 # jm3
 #

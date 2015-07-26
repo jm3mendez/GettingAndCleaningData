@@ -2,56 +2,86 @@ Instruction list
 
 Describe the procedure 
 
-The procedure involbe=ved to environmente R preferently an Linux
-just to extract and preapare the information, all could be done
-but R but I used that combinations. (In order to use my tools)
+The procedure involved two environment: R preferently an Linux
+(just to extract and preapare the information).
 
-The basic model correponded to a box that receiv as input the raw data
-received as a compressed and tared data.
+The basic model correponded to a box that received an input, the raw data
+ that is a compressed and tared data and its return a tiny data.
 
-i.- The data was downloaded, untared and uncomporessed by linux.
+A.- Phase 1, Getting and Cleanning Data
 
-  %wget "url....."   or R-Download
-  %tar -xvf "get *.zip"
-        and a work directory was created.
+i.- The data was downloaded, untared and uncomporessed by linux (extracting phase).
+
+  %wget "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"   
+  # or R-Download
+  %tar -xvf "getdata_projectfiles_UCI HAR Dataset.zip"
+  %mv getdata_projectfiles_UCI HAR Dataset.zip getdata_projectfiles_UCI_HAR_Dataset.zip
+  #and a work directory was created.
  
-ii.- The Data comes with noisy in order to be used adequately I filtered not 
-     the data itself but spureous character contains, like excesive
-     blanks characters, ^M Characters, excesive carriage return, etc.
+ii.- The Data comes noisy, in order to be used adequately I filtered  
+     the extra character contains, like excesive blanks characters, ^M 
+     Characters, excesive carriage return, etc.
      At the begining I used the linux sed, like 
-        %sed -e "s?^M//g" myfile > myfile2 
-     but finally I useds the linux awk filter in order to expose data as we need
-     a columnar aspect. the data row and a carriage return, the data row and cariage 
-     return and so on...
-
+        %sed -e "s/^M//g" myfile > myfile2 
+     but finally I used the linux awk filter in order to expose data 
+     as we need, a columnar aspect. the data row and a carriage return, 
+     the data row and cariage return and so on...
+  # generally over the measured files
   %awk '{ print$1' }' mytest/mytrain.txt > mytest2/mytrain2.txt
+  #the complete shells script was:
 
-iii.-From here R was used to
-    associate Variables with vector for all variables
-    for X, Y, nad Z coordinates of acceleration data, subject, activities, etc.
-    vector by variables were done
-    the the tiny dataframe df was created.
+# the xxxx_test2 and yyyy_train2 files 
 
-iv.- Processing stage 1
-     the mean and the standar desviation was asked I udses lapply to obtain that
-      named correspondly the differente variables
+(cd  /home/jmendez/Coursera/Getting-And_cleaning_data/Project/UCI_CHAR_Dataset/test;
+ awk -F" " 'BEGIN{cta=0;}{ print $1; cta++ }END{}' X_test.txt > X_test2.txt;
+ cd test;
+ awk '{print $1}' body_acc_x_test.txt > body_acc_x_test2.txt
+ awk '{print $1}' body_acc_y_test.txt > body_acc_y_test2.txt
+ awk '{print $1}' body_acc_z_test.txt > body_acc_z_test2.txt
+ awk '{print $1}' body_gyro_x_test.txt > body_gyro_x_test2.txt
+ awk '{print $1}' body_gyro_y_test.txt > body_gyro_y_test2.txt
+ awk '{print $1}' body_gyro_z_test.txt > body_gyro_z_test2.txt
+ awk '{print $1}' total_acc_x_test.txt > total_acc_x_test2.txt
+ awk '{print $1}' total_acc_y_test.txt > total_acc_y_test2.txt
+ awk '{print $1}' total_acc_z_test.txt > total_acc_z_test2.txt
+ )
+# Train 
+(cd  /home/jmendez/Coursera/Getting-And_cleaning_data/Project/UCI_CHAR_Dataset/train;
+ awk -F" " 'BEGIN{cta=0;}{ print $1; cta++ }END{}' X_train.txt > X_train2.txt;
+ awk '{print $1}' body_acc_x_train.txt > body_acc_x_train2.txt
+ awk '{print $1}' body_acc_y_train.txt > body_acc_y_train2.txt
+ awk '{print $1}' body_acc_z_train.txt > body_acc_z_train2.txt
+ awk '{print $1}' body_gyro_x_train.txt > body_gyro_x_train2.txt
+ awk '{print $1}' body_gyro_y_train.txt > body_gyro_y_train2.txt
+ awk '{print $1}' body_gyro_z_train.txt > body_gyro_z_train2.txt
+ awk '{print $1}' total_acc_x_train.txt > total_acc_x_train2.txt
+ awk '{print $1}' total_acc_y_train.txt > total_acc_y_train2.txt
+ awk '{print $1}' total_acc_z_train.txt > total_acc_z_train2.txt
+)
+  
+B.- Phase 2,  handling data to generate tiny data and process it. 
+   run_analysis.R script
+
+i.-From here R script was used to associate Variables with vector 
+   for all variables for X, Y, nad Z coordinates of acceleration data, 
+   subject, activities, etc.
+   One vector/column by variables were done
+   The firt tiny dataframe df was created.
+
+ii.- Pre-Processing stage 
+     the mean and the standar desviation was asked I used lapply to 
+     obtain that named correspondly  to the different variables
+
+iii.- The asked tiny data was generated using dlply functions
 
 
+iv.- The R script run_analysis.R
 
-Computer Scripts
-
-i.- linux to getting information
-  %wget "url....."     or R-Downloader
-  %tar -xvf "get *.zip"
-  %awk '{ print$1' }' mytest/mytrain.txt > mytest2/mytrain2.txt
-
-ii.- THen R script analize.R
-
-# My Project
-# JM3
+# My Project  JM3
 # You should create one R script called run_analysis.R 
 # that does the following: 
 #
+
 # 1.- Merges the training and the test sets to create one 
 #     data set.
 
@@ -93,7 +123,7 @@ taxtrain=as.vector(read.csv('UCI_HAR_Dataset/train/Inertial\ Signals/total_acc_x
 taytrain=as.vector(read.csv('UCI_HAR_Dataset/train/Inertial\ Signals/total_acc_y_train2.txt',sep='\n',header=F))
 taztrain=as.vector(read.csv('UCI_HAR_Dataset/train/Inertial\ Signals/total_acc_z_train2.txt',sep='\n',header=F))
 
-# Generate vectors
+# Generating vectors
 
 Subject=c(subtest$V1,subtrain$V1)
 
@@ -186,7 +216,7 @@ head(select(df,Y))
 #  This was done preiously and completed with activity name
 
 names(df)[3]="Activity"
-# the others  were Done Before
+# the others were Done Before
 names(df)
 
 
@@ -202,7 +232,12 @@ tiny2=group_by(df,Activity,Subject)
 
 meltdf=melt(df,id=c("Activity","Subject"),measure.vars=c("X","tBodyAccX","tBodyAccY","tBodyAccZ","tBodyGyroX","tBodyGyroY","tBodyGyroZ","tTotalAccX","tTotalAccY","tTotalAccZ"))
 
-newtiny=dcast(tiny2,Activity~variable,mean)
+group_by(newtiny,Subject,Activity)
+
+write.table(newtiny,file='tiny.txt',row.name=FALSE)
+
+
+
 
 
 # GettingAndCleaningData
